@@ -78,31 +78,24 @@ class input_processing:
 
 
 
-spam = input_processing("/Users/umanggala/desktop/courses/nlp/code/","spam1")
-ham = input_processing("/Users/umanggala/desktop/courses/nlp/code/","ham1")
+spam = input_processing("/Users/umanggala/desktop/courses/nlp/code/","spam")
+ham = input_processing("/Users/umanggala/desktop/courses/nlp/code/","ham")
 
-spam_words, spam_file_count = spam.extract_token()
-ham_words, ham_file_count = ham.extract_token()
+probability_spam_words, spam_file_count = spam.extract_token()
+probability_ham_words, ham_file_count = ham.extract_token()
 
 probabilityspam = spam_file_count/total_count
 probabilityham = ham_file_count/total_count
 
-probability_spam_words = spam.calculate_probability(spam_words)
-#print(probability_spam_words)
-
-probability_ham_words = ham.calculate_probability(ham_words)
-#print(probability_ham_words)
+probability_spam_words = spam.calculate_probability(probability_spam_words)
+probability_ham_words = ham.calculate_probability(probability_ham_words)
 
 probability_word_given_spam = spam.calculate_word_given_class(probability_spam_words)
-#print(probability_word_given_spam)
-
 probability_word_given_ham = ham.calculate_word_given_class(probability_ham_words)
-#print(probability_word_given_ham)
-
 
 global distinct_words
 
-target = open("/Users/umanggala/desktop/courses/nlp/code/nboutput.txt", 'w')
+target = open("/Users/umanggala/desktop/courses/nlp/code/nbmodel.txt", 'w')
 
 target.write(str(probabilityspam))
 target.write("\n")

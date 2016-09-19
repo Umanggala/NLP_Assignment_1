@@ -21,12 +21,19 @@ classified_incorrect_ham = 0
 total_files = 0
 classified_as_spam = 0
 classified_as_ham = 0
+file_spam = 0
+file_ham = 0
 
-for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/dev/testdemo"):
+for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/dev/4"):
     #if (os.path.basename(os.path.normpath(root)) == "spam1" || os.path.basename(os.path.normpath(root)) == 'ham1' ):
         os.chdir(root)
         for file in glob.glob("*.txt"):
             with open(file, "r", encoding="latin1") as f1:
+
+                if os.path.basename(os.path.normpath(root)) == "spam":
+                    file_spam = file_spam + 1
+                else:
+                    file_ham = file_ham + 1
 
                 probability_spam_given_text = 0
                 probability_ham_given_text = 0
@@ -53,7 +60,7 @@ for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/d
 
                     target.write("Spam")
                     classified_as_spam = classified_as_spam + 1
-                    if(os.path.basename(os.path.normpath(root)) == "spam1"):
+                    if(os.path.basename(os.path.normpath(root)) == "spam"):
 
                         classified_correct_spam = classified_correct_spam + 1
                     else:
@@ -62,7 +69,7 @@ for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/d
                 else:
                     target.write("Ham")
                     classified_as_ham = classified_as_ham + 1
-                    if (os.path.basename(os.path.normpath(root)) == "ham1"):
+                    if (os.path.basename(os.path.normpath(root)) == "ham"):
                         classified_correct_ham = classified_correct_ham + 1
                     else:
                         classified_incorrect_ham = classified_incorrect_ham + 1
@@ -74,9 +81,14 @@ for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/d
 precision_spam = classified_correct_spam / classified_as_spam
 precision_ham = classified_correct_ham / classified_as_ham
 
-print(precision_spam)
-print(precision_ham)
+recall_spam = classified_correct_spam / file_spam
+recall_ham = classified_correct_ham / file_ham
 
+F1_spam = (2*precision_spam*recall_spam)/(precision_spam + recall_spam)
+F1_ham = (2*precision_ham*recall_ham) / (precision_spam + recall_ham)
+
+print(F1_spam)
+print(F1_ham)
 
 
 target.close()

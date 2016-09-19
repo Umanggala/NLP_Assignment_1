@@ -1,9 +1,12 @@
 import glob,os
 import re, math
+import sys
+
+filename = sys.argv[-1]
 
 newDict = {}
 
-with open('/Users/umanggala/desktop/courses/nlp/code/nbmodel.txt') as f:
+with open(filename + '/nbmodel.txt') as f:
 
     probability_spam = f.readline()
     probability_ham = f.readline()
@@ -13,7 +16,7 @@ with open('/Users/umanggala/desktop/courses/nlp/code/nbmodel.txt') as f:
         #if(splitLine[0] != ' '):
         newDict[splitLine[0]] = [splitLine[1], splitLine[2]]
 
-target = open("/Users/umanggala/desktop/courses/nlp/code/nboutput.txt", 'w')
+target = open(filename + "/nboutput.txt", 'w')
 classified_correct_spam = 0
 classified_incorrect_spam = 0
 classified_correct_ham = 0
@@ -24,7 +27,7 @@ classified_as_ham = 0
 file_spam = 0
 file_ham = 0
 
-for root, subdirs, files in os.walk("/Users/umanggala/desktop/courses/nlp/code/dev/4"):
+for root, subdirs, files in os.walk(filename + 'dev'):
     #if (os.path.basename(os.path.normpath(root)) == "spam1" || os.path.basename(os.path.normpath(root)) == 'ham1' ):
         os.chdir(root)
         for file in glob.glob("*.txt"):

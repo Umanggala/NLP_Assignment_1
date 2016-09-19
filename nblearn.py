@@ -4,6 +4,9 @@
 #'mississippi'.rstrip('ipz')
 
 import glob, os
+import sys
+
+filename = sys.argv[-1]
 
 class input_processing:
 
@@ -76,8 +79,8 @@ class input_processing:
         return new_dict1,new_dict2
 
 
-spam = input_processing("/Users/umanggala/desktop/courses/nlp/code/train","spam")
-ham = input_processing("/Users/umanggala/desktop/courses/nlp/code/train","ham")
+spam = input_processing(filename+"/train","spam")
+ham = input_processing(filename+"/train","ham")
 
 probability_spam_words, spam_file_count = spam.extract_token()
 probability_ham_words, ham_file_count = ham.extract_token()
@@ -87,7 +90,7 @@ probability_spam_words,probability_ham_words = spam.calculate_probability(probab
 probabilityspam = spam_file_count/total_count
 probabilityham = ham_file_count/total_count
 
-target = open("/Users/umanggala/desktop/courses/nlp/code/nbmodel.txt", 'w')
+target = open(filename + "/nbmodel.txt", 'w')
 
 target.write(str(probabilityspam))
 target.write("\n")

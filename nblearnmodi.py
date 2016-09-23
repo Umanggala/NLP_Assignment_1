@@ -4,11 +4,11 @@
 #'mississippi'.rstrip('ipz')
 
 import glob, os
-import sys
+import sys, re
 
 filename = sys.argv[-1]
 
-target = open(filename + "/nbmodel.txt", 'w')
+target = open(filename + "/nbmodel1.txt", 'w')
 
 class input_processing:
 

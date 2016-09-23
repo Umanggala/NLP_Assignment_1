@@ -5,19 +5,35 @@ import sys
 filename = sys.argv[-1]
 
 newDict = {}
-with open(filename + '/nbmodel.txt') as f:
+
+'''
+def removePostfix(argWord):
+    leaves = "s", "es", "ed", "er", "ly", "ing"
+    for leaf in leaves:
+        if argWord[-len(leaf):] == leaf:
+            return argWord[:-len(leaf)]
+'''
+stopwords = []
+with open(filename + "/stopwords.txt") as f1:
+    for line in f1:
+        for word in line.split():
+            stopwords.append(word)
+
+with open(filename + '/nbmodel1.txt') as f:
 
     probability_spam = f.readline()
     probability_ham = f.readline()
 
     for line in f:
         splitLine = line.split()
-        #if(splitLine[0] != ' '):
-        newDict[splitLine[0]] = [splitLine[1], splitLine[2]]
+        if(splitLine[0] != ' '):
+            newDict[splitLine[0]] = [splitLine[1], splitLine[2]]
 
-f.close()
+    for word in stopwords:
+        if word in newDict:
+            del newDict[word]
 
-target = open(filename + "/nboutput.txt", 'w')
+target = open(filename + "/nboutput1.txt", 'w')
 classified_correct_spam = 0
 classified_incorrect_spam = 0
 classified_correct_ham = 0
@@ -48,6 +64,7 @@ for root, subdirs, files in os.walk(filename + '/dev'):
                     line = ''.join(line.splitlines())
 
                     for word in line.split():
+                        word = re.sub('[^\w]', '', word)
                         if word in newDict:
                             probability_spam_given_text = probability_spam_given_text + math.log(float(newDict.get(word)[0]))
                             probability_ham_given_text = probability_ham_given_text + math.log(float(newDict.get(word)[1]))

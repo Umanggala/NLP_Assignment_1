@@ -15,6 +15,7 @@ ii) I cleaned the data and then performed Naive Bayes classification algorithm o
 ### Classify: Code/nbclassify.py. 
 
 Performance: 
+
 1a. spam precision: 0.99
 
 1b. spam recall: 0.98
@@ -34,9 +35,11 @@ Performance:
 ### Classify: Code/nbclassifymod.py.
 
 a. Initially I removed all the stop words from the test file and then used the cleaned text file to calculate the probability. This helps to remove the common words and hence reduces their calculation for probabilities. 
+
 b. Then I removed all the special characters from the file and hence it thus improved the probabilities for the ham calculation and spam calculation.
 	 
 Performance:
+
 2a. spam precision: 0.9913
 
 2b. spam recall: 0.9929
